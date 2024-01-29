@@ -6,8 +6,8 @@ return {
             formatters_by_ft = {
                 lua = { "stylua" },
                 python = { "isort", "ruff" },
-                c = { "clang-format" },
-                cpp = { "clang-format" },
+                c = { "clang_format" },
+                cpp = { "clang_format" },
                 sh = { "prettier" },
                 tex = { "prettier" },
                 cmake = { "prettier" },

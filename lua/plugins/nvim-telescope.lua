@@ -32,6 +32,8 @@ return {
         build =
         'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
         config = function()
+            vim.g.loaded_fzf = true
+            vim.g.fzf_path = "/C/ProgramData/chocolatey/bin/fzf.exe"
             require("telescope").load_extension("fzf")
         end
     }

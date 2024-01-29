@@ -11,8 +11,8 @@ return {
             javascript = { "eslint_d" },
             typescript = { "eslint_d" },
             python = { "ruff" },
-            c = { "clangtidy" },
-            cpp = { "clangtidy" },
+            c = { "clangd", "clangtidy" },
+            cpp = { "clangd", "clangtidy" },
             json = { "jsonlint" },
         }
 
