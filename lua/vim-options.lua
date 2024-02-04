@@ -10,5 +10,5 @@ vim.cmd("set cursorline")
 
 vim.cmd("highlight CursorLine cterm=NONE ctermbg=236 ctermfg=NONE guibg=Grey40")
 
-vim.api.nvim_set_keymap("n", "<leader>p", '"+p :%s/\r//g<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "<leader>p", '"+p :%s/\r//g<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>cm", ':%s/\r//g<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<leader>cm", ':%s/\r//g<CR>', { noremap = true, silent = true })
