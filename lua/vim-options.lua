@@ -7,6 +7,7 @@ vim.cmd("set clipboard=unnamedplus")
 vim.cmd("set relativenumber")
 vim.cmd("set number")
 vim.cmd("set cursorline")
+vim.cmd("set nowrap")
 
 vim.cmd("highlight CursorLine cterm=NONE ctermbg=236 ctermfg=NONE guibg=Grey40")
 
