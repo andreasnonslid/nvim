@@ -15,4 +15,3 @@ vim.opt.rtp:prepend(lazypath)
 
 require("vim-options")
 require("lazy").setup("plugins", { debug = true })
-require("lazy").setup("after", { debug = true })
