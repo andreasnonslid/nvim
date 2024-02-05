@@ -11,4 +11,4 @@ vim.cmd("set nowrap")
 
 vim.cmd("highlight CursorLine cterm=NONE ctermbg=236 ctermfg=NONE guibg=Grey40")
 
-vim.api.nvim_set_keymap("n", "<leader>cm", ":%s/\r//g<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>cm", ":let @/ = ''<CR>:%s/\\r//g<CR>", { noremap = true, silent = true })
