@@ -1,5 +1,46 @@
 return {
 	{
+		"neovim/nvim-lspconfig",
+		config = function()
+			local lspconfig = require("lspconfig")
+
+			lspconfig.bashls.setup({})
+			lspconfig.clangd.setup({})
+			lspconfig.cmake.setup({})
+			lspconfig.eslint.setup({})
+			lspconfig.lua_ls.setup({})
+			lspconfig.ruff_lsp.setup({})
+			lspconfig.tsserver.setup({})
+			lspconfig.yamlls.setup({})
+
+			local lsp_cmds = vim.api.nvim_create_augroup("lsp_cmds", { clear = true })
+
+			vim.api.nvim_create_autocmd("LspAttach", {
+				group = lsp_cmds,
+				desc = "LSP actions",
+				callback = function()
+					local bufmap = function(mode, lhs, rhs)
+						vim.keymap.set(mode, lhs, rhs, { buffer = true })
+					end
+
+					bufmap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>")
+					bufmap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>")
+					bufmap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>")
+					bufmap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>")
+					bufmap("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>")
+					bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>")
+					bufmap("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
+					bufmap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>")
+					bufmap({ "n", "x" }, "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>")
+					bufmap("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>")
+					bufmap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>")
+					bufmap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
+					bufmap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>")
+				end,
+			})
+		end,
+	},
+	{
 		"williamboman/mason.nvim",
 		config = function()
 			require("mason").setup()
@@ -14,57 +55,12 @@ return {
 					"bashls",
 					"cmake",
 					"clangd",
-					"dockerls",
-					"jsonls",
 					"tsserver",
-					"ltex",
-					"marksman",
-					"powershell_es",
+					"eslint",
 					"ruff_lsp",
-					"rust_analyzer",
-					"taplo",
 					"yamlls",
 				},
 			})
-		end,
-	},
-	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			local lspconfig = require("lspconfig")
-			lspconfig.lua_ls.setup({})
-			lspconfig.tsserver.setup({})
-
-			vim.keymap.set("n", "gr", function()
-				vim.lsp.buf.references()
-			end, opts, { desc = "LSP Goto Reference" })
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
-
-			vim.keymap.set("n", "<leader>vws", function()
-				vim.lsp.buf.workspace_symbol()
-			end, opts, { desc = "LSP Workspace Symbol" })
-			vim.keymap.set("n", "<leader>vd", function()
-				vim.diagnostic.setloclist()
-			end, opts, { desc = "LSP Show Diagnostics" })
-			vim.keymap.set("n", "[d", function()
-				vim.diagnostic.goto_next()
-			end, opts, { desc = "Next Diagnostic" })
-			vim.keymap.set("n", "]d", function()
-				vim.diagnostic.goto_prev()
-			end, opts, { desc = "Previous Diagnostic" })
-			vim.keymap.set("n", "<leader>ca", function()
-				vim.lsp.buf.code_action()
-			end, opts, { desc = "LSP Code Action" })
-			vim.keymap.set("n", "<leader>vrr", function()
-				vim.lsp.buf.references()
-			end, opts, { desc = "LSP References" })
-			vim.keymap.set("n", "<leader>vrn", function()
-				vim.lsp.buf.rename()
-			end, opts, { desc = "LSP Rename" })
-			vim.keymap.set("i", "<C-h>", function()
-				vim.lsp.buf.signature_help()
-			end, opts, { desc = "LSP Signature Help" })
 		end,
 	},
 }
