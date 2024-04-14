@@ -1,7 +1,7 @@
 return {
-	-- "ggandor/leap.nvim",
-	-- config = function()
-	-- 	local leap = require("leap")
-	-- 	leap.add_default_mappings(true)
-	-- end,
+    -- 	-- "ggandor/leap.nvim",
+    -- 	-- config = function()
+    -- 	-- 	local leap = require("leap")
+    -- 	-- 	leap.add_default_mappings(true)
+    -- 	-- end,
 }
