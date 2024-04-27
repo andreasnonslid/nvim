@@ -17,6 +17,16 @@ return {
                 async = false,
                 lsp_fallback = true,
             },
+            keys = {
+                {
+                    '<leader>f',
+                    function()
+                        require('conform').format { async = true, lsp_fallback = true }
+                    end,
+                    mode = '',
+                    desc = '[F]ormat buffer',
+                },
+            },
         })
     end,
 }
