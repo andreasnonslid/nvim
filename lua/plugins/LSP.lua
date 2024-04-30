@@ -200,11 +200,11 @@ return { -- LSP Configuration & Plugins
 			"stylua",
 			"selene",
 			"ruff",
+			"pyright",
 			"isort",
 			"black",
 			"mypy",
 			"cpplint",
-			"sonarlint-language-server",
 			"clang-format",
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })

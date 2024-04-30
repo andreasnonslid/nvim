@@ -9,9 +9,9 @@ return {
 
 		lint.linters_by_ft = {
 			lua = { "selene" },
-			python = { "ruff", "mypy", "sonarlint-language-server" },
-			c = { "cpplint", "sonarlint-language-server" },
-			cpp = { "cpplint", "sonarlint-language-server" },
+			python = { "ruff", "mypy" },
+			c = { "cpplint" },
+			cpp = { "cpplint" },
 		}
 
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })

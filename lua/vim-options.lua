@@ -6,7 +6,7 @@ vim.g.maplocalleader = " "
 vim.opt.clipboard = "unnamedplus"
 
 -- Toggle Nerd Font usage
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- Enable relative and absolute line numbers
 vim.opt.relativenumber = true
