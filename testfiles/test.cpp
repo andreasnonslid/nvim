@@ -4,11 +4,11 @@
 using namespace std;
 
 class ExampleClass {
-public:
+ public:
   ExampleClass(int x) : m_x(x) {}
   void doSomething() { cout << "Value: " << m_x << endl; }
 
-private:
+ private:
   int m_x;
 };
 

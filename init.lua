@@ -13,9 +13,11 @@ vim.opt.rtp:prepend(lazypath)
 
 require("vim-options")
 require("vim-keybinds")
+require("set-mason-git-dirs-safe")
 
 require("lazy").setup("plugins", { debug = true }, { change_detection = { notify = false } })
 
+-- My lazily added custom functions
 -- Function to jump to the next line with the same content
 function JumpToNextMatchingLine()
 	local current_line = vim.api.nvim_get_current_line()
@@ -38,6 +40,10 @@ function JumpToNextMatchingLine()
 
 	print("No matching line found")
 end
-
 -- Map <leader>n to the JumpToNextMatchingLine function
-vim.api.nvim_set_keymap("n", "<leader>n", ":lua JumpToNextMatchingLine()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+	"n",
+	"<leader>n",
+	":lua JumpToNextMatchingLine()<CR>",
+	{ desc = "[N]ext identical line", noremap = true, silent = true }
+)
