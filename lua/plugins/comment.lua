@@ -4,12 +4,9 @@ return {
 	config = function()
 		require("Comment").setup({
 			mappings = {
-				basic = false, -- disable default bindings
+				basic = false, -- Disable the default 'gc' and 'gcc' mappings
+				extra = false, -- Disable extra mappings like 'gco', 'gcO', 'gcA'
 			},
 		})
-
-		-- Remove any existing mappings for `gc`
-		vim.api.nvim_del_keymap("n", "gc")
-		vim.api.nvim_del_keymap("n", "gcc")
 	end,
 }

@@ -13,7 +13,7 @@ return {
 				},
 			})
 
-			-- Make sure mason installs the linters you need
+			-- Make sure mason installs the linters and tools you need
 			local mason_registry = require("mason-registry")
 			local ensure_installed = {
 				"cppcheck", -- C++ linter
@@ -22,6 +22,8 @@ return {
 				"mypy", -- Python type checker
 				"ruff", -- Python linter
 				"cmakelint", -- CMake linter
+				"eslint_d", -- JavaScript linter
+				"prettier", -- JavaScript/TypeScript/HTML/CSS formatter
 			}
 
 			-- Automatically install if not already installed
@@ -44,6 +46,7 @@ return {
 					"cmake",
 					"pylsp",
 					"zls",
+					"ts_ls", -- JavaScript/TypeScript LSP
 				},
 			})
 
@@ -54,6 +57,7 @@ return {
 			lspconfig.cmake.setup({})
 			lspconfig.pylsp.setup({})
 			lspconfig.zls.setup({})
+			lspconfig.ts_ls.setup({}) -- JavaScript/TypeScript LSP
 		end,
 	},
 	-- nvim-lint configuration for linting
@@ -69,6 +73,8 @@ return {
 				cpp = { "cppcheck", "cpplint" },
 				python = { "ruff", "pylint", "mypy" },
 				cmake = { "cmakelint" },
+				javascript = { "eslint_d" }, -- JavaScript linter
+				typescript = { "eslint_d" }, -- TypeScript linter
 			}
 
 			-- Setup autocmd to lint on file save
@@ -118,6 +124,24 @@ return {
 							return {
 								exe = "stylua",
 								args = { "-" },
+								stdin = true,
+							}
+						end,
+					},
+					javascript = {
+						function()
+							return {
+								exe = "prettier",
+								args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--parser", "babel" },
+								stdin = true,
+							}
+						end,
+					},
+					typescript = {
+						function()
+							return {
+								exe = "prettier",
+								args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--parser", "typescript" },
 								stdin = true,
 							}
 						end,
