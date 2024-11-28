@@ -13,7 +13,7 @@ return {
 				},
 			})
 
-			-- Make sure mason installs the linters and tools you need
+			-- Ensure Mason installs the necessary tools
 			local mason_registry = require("mason-registry")
 			local ensure_installed = {
 				"cppcheck", -- C++ linter
@@ -22,8 +22,8 @@ return {
 				"mypy", -- Python type checker
 				"ruff", -- Python linter
 				"cmakelint", -- CMake linter
-				"eslint_d", -- JavaScript linter
-				"prettier", -- JavaScript/TypeScript/HTML/CSS formatter
+				"eslint_d", -- JavaScript/TypeScript linter
+				"prettier",
 			}
 
 			-- Automatically install if not already installed
@@ -46,18 +46,49 @@ return {
 					"cmake",
 					"pylsp",
 					"zls",
-					"ts_ls", -- JavaScript/TypeScript LSP
+					"ts_ls", -- JavaScript/TypeScript LSP (deprecated tsserver)
 				},
 			})
 
 			local lspconfig = require("lspconfig")
 
-			-- Setup LSP servers
-			lspconfig.clangd.setup({})
-			lspconfig.cmake.setup({})
-			lspconfig.pylsp.setup({})
-			lspconfig.zls.setup({})
-			lspconfig.ts_ls.setup({}) -- JavaScript/TypeScript LSP
+			-- Keybindings for LSP functionality
+			local on_attach = function(_, bufnr)
+				local map = function(keys, func, desc)
+					if desc then
+						desc = "LSP: " .. desc
+					end
+					vim.api.nvim_buf_set_keymap(
+						bufnr,
+						"n",
+						keys,
+						"",
+						{ noremap = true, silent = true, callback = func, desc = desc }
+					)
+				end
+
+				-- Keybindings for LSP functions
+				map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+				map("gr", vim.lsp.buf.references, "[G]oto [R]eferences")
+				map("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
+				map("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
+				map("<leader>ds", vim.lsp.buf.document_symbol, "[D]ocument [S]ymbols")
+				map("<leader>ps", vim.lsp.buf.workspace_symbol, "[P]roject [S]ymbols")
+				map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+				map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+				map("K", vim.lsp.buf.hover, "Hover Documentation")
+				map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+				map("[d", vim.diagnostic.goto_prev, "Go to previous diagnostic")
+				map("]d", vim.diagnostic.goto_next, "Go to next diagnostic")
+				map("<leader>e", vim.diagnostic.open_float, "Open diagnostic")
+			end
+
+			-- Setup LSP servers with on_attach for keybindings
+			lspconfig.clangd.setup({ on_attach = on_attach })
+			lspconfig.cmake.setup({ on_attach = on_attach })
+			lspconfig.pylsp.setup({ on_attach = on_attach })
+			lspconfig.zls.setup({ on_attach = on_attach })
+			lspconfig.ts_ls.setup({ on_attach = on_attach })
 		end,
 	},
 	-- nvim-lint configuration for linting
@@ -73,8 +104,8 @@ return {
 				cpp = { "cppcheck", "cpplint" },
 				python = { "ruff", "pylint", "mypy" },
 				cmake = { "cmakelint" },
-				javascript = { "eslint_d" }, -- JavaScript linter
-				typescript = { "eslint_d" }, -- TypeScript linter
+				javascript = { "eslint_d" },
+				typescript = { "eslint_d" },
 			}
 
 			-- Setup autocmd to lint on file save
