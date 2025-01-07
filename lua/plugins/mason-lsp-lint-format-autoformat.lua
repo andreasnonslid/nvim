@@ -84,7 +84,20 @@ return {
 			end
 
 			-- Setup LSP servers with on_attach for keybindings
-			lspconfig.clangd.setup({ on_attach = on_attach })
+			lspconfig.clangd.setup({
+				on_attach = on_attach,
+				handlers = {
+					-- Override diagnostic handlers for clangd only
+					["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
+						config = config or {}
+						config.virtual_text = false -- Remove inline virtual text
+						config.signs = false -- Disable signs in the gutter
+						config.underline = false -- Disable underlining of issues
+						config.update_in_insert = false -- Do not show diagnostics in insert mode
+						vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+					end,
+				},
+			})
 			lspconfig.cmake.setup({ on_attach = on_attach })
 			lspconfig.pylsp.setup({ on_attach = on_attach })
 			lspconfig.zls.setup({ on_attach = on_attach })
