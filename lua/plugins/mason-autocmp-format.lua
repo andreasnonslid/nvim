@@ -57,30 +57,27 @@ return {
 		"mhartington/formatter.nvim",
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
+			-- Detect platform once to avoid repeated checks
 			local is_windows = vim.loop.os_uname().sysname:match("Windows")
+			local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
+			local shell_cmd = is_windows and "cmd.exe" or "/bin/bash"
 
-			-- Helper function to get the path dynamically
-			local function get_executable_path(tool)
-				local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
-				if is_windows then
-					return mason_bin .. "/" .. tool .. ".cmd"
-				else
-					return mason_bin .. "/" .. tool
-				end
-			end
+			-- Set shell globally (once)
+			vim.o.shell = shell_cmd
 
-			if vim.fn.has("win32") == 1 then
-				vim.o.shell = "cmd.exe"
-			else
-				vim.o.shell = "/bin/bash"
-			end
+			-- Helper function for reusable executable path resolution
+			local executables = {
+				prettier = mason_bin .. (is_windows and "/prettier.cmd" or "/prettier"),
+				clang_format = mason_bin .. (is_windows and "/clang-format.cmd" or "/clang-format"),
+				stylua = mason_bin .. (is_windows and "/stylua.cmd" or "/stylua"),
+			}
 
 			require("formatter").setup({
 				filetype = {
 					python = {
 						function()
 							return {
-								exe = get_executable_path("prettier"), -- Dynamically locate prettier
+								exe = executables.prettier, -- Use pre-resolved path
 								args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--parser", "python" },
 								stdin = true,
 							}
@@ -89,7 +86,7 @@ return {
 					c = {
 						function()
 							return {
-								exe = get_executable_path("clang-format"), -- Dynamically locate clang-format
+								exe = executables.clang_format,
 								args = { "--style=Google" },
 								stdin = true,
 							}
@@ -98,7 +95,7 @@ return {
 					cpp = {
 						function()
 							return {
-								exe = get_executable_path("clang-format"), -- Dynamically locate clang-format
+								exe = executables.clang_format,
 								args = { "--style=Google" },
 								stdin = true,
 							}
@@ -107,7 +104,7 @@ return {
 					lua = {
 						function()
 							return {
-								exe = get_executable_path("stylua"), -- Dynamically locate stylua
+								exe = executables.stylua,
 								args = { "-" },
 								stdin = true,
 							}
@@ -116,7 +113,7 @@ return {
 					javascript = {
 						function()
 							return {
-								exe = get_executable_path("prettier"), -- Dynamically locate prettier
+								exe = executables.prettier,
 								args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--parser", "babel" },
 								stdin = true,
 							}
@@ -125,7 +122,7 @@ return {
 					typescript = {
 						function()
 							return {
-								exe = get_executable_path("prettier"), -- Dynamically locate prettier
+								exe = executables.prettier,
 								args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--parser", "typescript" },
 								stdin = true,
 							}
@@ -134,8 +131,9 @@ return {
 				},
 			})
 
+			-- Use more specific autocommand patterns for FormatWrite
 			vim.api.nvim_create_autocmd("BufWritePost", {
-				pattern = "*",
+				pattern = { "*.lua", "*.py", "*.c", "*.cpp", "*.js", "*.ts" },
 				command = "FormatWrite",
 			})
 		end,
