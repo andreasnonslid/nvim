@@ -21,3 +21,17 @@ require("lazy").setup("plugins", { debug = true }, { change_detection = { notify
 require("jump-to-matching-line")
 require("search-for-numbers")
 require("markdown-helpers")
+
+-- Lazily added keymaps for folke/persistence.nvim
+vim.keymap.set("n", "<leader>qs", function()
+	require("persistence").load()
+end)
+vim.keymap.set("n", "<leader>qS", function()
+	require("persistence").select()
+end)
+vim.keymap.set("n", "<leader>ql", function()
+	require("persistence").load({ last = true })
+end)
+vim.keymap.set("n", "<leader>qd", function()
+	require("persistence").stop()
+end)

@@ -1,36 +1,16 @@
 return {
 	{
-		"ggandor/flit.nvim",
-		enabled = true,
-		keys = function()
-			local ret = {}
-			for _, key in ipairs({ "f", "F", "t", "T" }) do
-				ret[#ret + 1] = { key, mode = { "n", "x", "o" } }
-			end
-			return ret
-		end,
-		opts = { labeled_modes = "nx" },
-	},
-	{
-		"ggandor/leap.nvim",
-		enabled = true,
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		---@type Flash.Config
+		opts = {},
+		-- stylua: ignore
 		keys = {
-			{ "s", mode = { "n", "x", "o" }, desc = "Leap Forward to" },
-			{ "S", mode = { "n", "x", "o" }, desc = "Leap Backward to" },
-			{ "gs", mode = { "n", "x", "o" }, desc = "Leap from Windows" },
+		{ "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+		{ "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+		{ "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+		{ "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+		{ "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
 		},
-		config = function()
-			local leap = require("leap")
-
-			leap.add_default_mappings(true)
-
-			leap.opts.safe_labels = { "s", "S", "gs" }
-			leap.opts.case_sensitive = true
-
-			-- Clear unwanted mappings if necessary
-			vim.keymap.del({ "x", "o" }, "x")
-			vim.keymap.del({ "x", "o" }, "X")
-		end,
 	},
-	{ "tpope/vim-repeat", event = "VeryLazy" },
 }

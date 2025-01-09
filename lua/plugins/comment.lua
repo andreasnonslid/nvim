@@ -4,7 +4,7 @@ return {
 	config = function()
 		require("Comment").setup({
 			mappings = {
-				basic = false, -- Disable the default 'gc' and 'gcc' mappings
+				basic = true,
 				extra = false, -- Disable extra mappings like 'gco', 'gcO', 'gcA'
 			},
 		})
