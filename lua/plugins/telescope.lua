@@ -32,6 +32,10 @@ return {
 			vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "[F]ind [T]odos" })
 			vim.keymap.set("n", "<leader>/", function()
 				builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+					layout_config = {
+						width = 0.9,
+						height = 0.7,
+					},
 					winblend = 10,
 					previewer = false,
 				}))
