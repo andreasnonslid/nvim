@@ -1,13 +1,12 @@
 return {
 	"andreasnonslid/justlists",
-	dev = true,
-	dir = "~/dev/justlists",
+	-- dev = true, dir = "~/dev/justlists",
 	dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
 	config = function()
 		local justlists = require("justlists")
 		justlists.setup({
 			-- list_dir = vim.fn.stdpath("data") .. "/justlists", -- Default list directory
-			list_dir = vim.fn.expand("~/list_directory"),
+			list_dir = vim.fn.expand("~/../andreas/dropbox/list_directory"),
 			file_extension = ".md", -- Default
 		})
 
