@@ -26,6 +26,7 @@ return {
 				"toml",
 				"yaml",
 				"zig",
+				"odin",
 			},
 			highlight = { enable = true },
 			indent = { enable = true },
