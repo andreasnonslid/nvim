@@ -1,5 +1,5 @@
 -- Set language
-vim.cmd("language en_US")
+vim.cmd("language en_US.utf8")
 
 -- Set leader keys
 vim.g.mapleader = " "
