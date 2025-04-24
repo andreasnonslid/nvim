@@ -27,7 +27,6 @@ return {
 				"prettier",
 				"prettierd",
 				"stylua",
-				"clang-format",
 			}
 
 			-- Automatically install if not already installed
@@ -68,7 +67,7 @@ return {
 			-- Helper function for reusable executable path resolution
 			local executables = {
 				prettier = mason_bin .. (is_windows and "/prettier.cmd" or "/prettier"),
-				clang_format = mason_bin .. (is_windows and "/clang-format.cmd" or "/clang-format"),
+				clang_format = "clang-format",
 				stylua = mason_bin .. (is_windows and "/stylua.cmd" or "/stylua"),
 			}
 
@@ -87,7 +86,7 @@ return {
 						function()
 							return {
 								exe = executables.clang_format,
-								args = { "--style=Google" },
+								-- args = { "--style=Google" },
 								stdin = true,
 							}
 						end,
@@ -96,7 +95,7 @@ return {
 						function()
 							return {
 								exe = executables.clang_format,
-								args = { "--style=Google" },
+								-- args = { "--style=Google" },
 								stdin = true,
 							}
 						end,
