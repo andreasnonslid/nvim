@@ -26,6 +26,7 @@ return {
 				"toml",
 				"yaml",
 				"zig",
+				"ocaml",
 				"odin",
 			},
 			highlight = { enable = true },

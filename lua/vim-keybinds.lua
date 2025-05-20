@@ -1,6 +1,12 @@
 -- vim.api.nvim_set_keymap("i", "jk", "<ESCAPE>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>w", "<cmd>w<CR>", { noremap = true, silent = true, desc = "[W]rite buffer" })
 
+-- Map <leader>y in visual mode to yank to the system clipboard
+vim.api.nvim_set_keymap("v", "<leader>y", '"+y', { noremap = true, silent = true, desc = "[Y]ank to clipboard" })
+
+-- Map <leader>p in normal mode to paste from the system clipboard
+vim.api.nvim_set_keymap("n", "<leader>p", '"+p', { noremap = true, silent = true, desc = "[P]aste from clipboard" })
+
 -- removes the ^M line endings when copying from windows to wsl
 vim.api.nvim_set_keymap(
 	"n",

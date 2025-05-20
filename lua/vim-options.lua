@@ -5,9 +5,6 @@ vim.cmd("language en_US.utf8")
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Configure clipboard to use system clipboard
-vim.opt.clipboard = "unnamedplus"
-
 -- Toggle Nerd Font usage
 vim.g.have_nerd_font = true
 
