@@ -1,35 +1,11 @@
+local my_theme = "noctishc"
+
 return {
-	-- {
-	-- 	"rose-pine/neovim",
-	-- 	name = "rose-pine",
-	-- 	priority = 1000,
-	-- 	config = function()
-	-- 		require("rose-pine").setup({})
-	--
-	-- 		vim.cmd.colorscheme("rose-pine")
-	-- 	end,
-	-- },
 	{
-		"marko-cerovac/material.nvim",
-		name = "material",
-		priority = 1000,
-		config = function()
-			require("material").setup({
-				plugins = {
-					"gitsigns",
-					"harpoon",
-					"indent-blankline",
-					"mini",
-					"noice",
-					"nvim-tree",
-					"nvim-web-devicons",
-					"telescope",
-					"trouble",
-					"which-key",
-				},
-			})
-			vim.g.material_style = "deep ocean"
-			vim.cmd.colorscheme("material")
+		"iagorrr/noctishc.nvim",
+		opts = {},
+		config = function(_, opts)
+			require(my_theme).setup(opts)
 		end,
 	},
 	{
@@ -37,19 +13,8 @@ return {
 		dependencies = { "nvim-tree/nvim-web-devicons", opt = true },
 		config = function()
 			require("lualine").setup({
-				theme = "material",
+				theme = my_theme,
 			})
 		end,
 	},
 }
-
--- return {
---    "alexxGmZ/e-ink.nvim",
---    priority = 1000,
---    config = function ()
---       require("e-ink").setup()
---       vim.cmd.colorscheme "e-ink"
---
---       vim.opt.background = "dark"
---    end
--- }
