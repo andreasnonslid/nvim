@@ -13,9 +13,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("vim-options")
 require("vim-keybinds")
-require("set-mason-git-dirs-safe")
 
-require("lazy").setup("plugins", { debug = true }, { change_detection = { notify = false } })
+-- require("lazy").setup("plugins", { debug = true }, { change_detection = { notify = false } })
+require("lazy").setup("plugins", {}, { change_detection = { notify = false } })
 
 -- My lazily added custom functions
 require("jump-to-matching-line")
