@@ -19,8 +19,6 @@ require("lazy").setup("plugins", {}, { change_detection = { notify = false } })
 
 -- My lazily added custom functions
 require("jump-to-matching-line")
-require("search-for-numbers")
-require("markdown-helpers")
 
 -- Lazily added keymaps for folke/persistence.nvim
 vim.keymap.set("n", "<leader>qs", function()
@@ -35,5 +33,3 @@ end)
 vim.keymap.set("n", "<leader>qd", function()
     require("persistence").stop()
 end)
-
-require('clangd')

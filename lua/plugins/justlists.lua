@@ -1,8 +1,10 @@
 return {
     "andreasnonslid/justlists",
+    dev = true,
+    dir = "~/dev/justlists",
     dependencies = {
         "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope.nvim",
+        "folke/snacks.nvim",
     },
     config = function()
         local jl = require("justlists")
