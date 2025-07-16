@@ -1,7 +1,7 @@
 return {
     "andreasnonslid/justlists",
-    dev = true,
-    dir = "~/dev/justlists",
+    -- dev = true,
+    -- dir = "~/dev/justlists",
     dependencies = {
         "nvim-lua/plenary.nvim",
         "folke/snacks.nvim",
